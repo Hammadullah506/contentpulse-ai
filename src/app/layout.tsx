@@ -49,15 +49,27 @@ export const metadata: Metadata = {
   authors: [{ name: 'Malik Hammad', url: 'https://malikhammaddigital.com' }],
   creator: 'Malik Hammad',
   openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://contentpulse.malikhammaddigital.com',
+    siteName: 'ContentPulse AI',
     title: 'ContentPulse AI — Multi-Platform Content Repurposing Micro-SaaS',
-    description: 'Turn any technical article into 6 viral formats in 5 seconds. Architected by Malik Hammad.',
-    images: [{ url: '/brand-icon.jpg', width: 1024, height: 1024, alt: 'ContentPulse AI Logo' }],
+    description: 'Turn any technical article into 6 viral formats in 5 seconds. Architected by Malik Hammad (NEXUS PULSE).',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        type: 'image/jpeg',
+        alt: 'ContentPulse AI — Repurposing Micro-SaaS by Malik Hammad',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ContentPulse AI — Multi-Platform Content Repurposing',
-    description: 'Turn any technical article into 6 viral formats in 5 seconds. Architected by Malik Hammad.',
-    images: ['/brand-icon.jpg'],
+    title: 'ContentPulse AI — Multi-Platform Content Repurposing Micro-SaaS',
+    description: 'Turn any technical article into 6 viral formats in 5 seconds. Architected by Malik Hammad (NEXUS PULSE).',
+    images: ['/og-image.jpg'],
   },
 };
 
@@ -72,6 +84,18 @@ export default function RootLayout({
         <link rel="icon" href="/icon.svg?v=2" type="image/svg+xml" />
         <link rel="alternate icon" href="/brand-icon.jpg" type="image/jpeg" />
         <link rel="apple-touch-icon" href="/brand-icon.jpg" />
+
+        {/* WhatsApp & Social Media OpenGraph Meta Tags */}
+        <meta property="og:title" content="ContentPulse AI — Multi-Platform Content Repurposing Micro-SaaS" />
+        <meta property="og:description" content="Turn any technical article into 6 viral formats in 5 seconds. Architected by Malik Hammad (NEXUS PULSE)." />
+        <meta property="og:image" content="https://contentpulse.malikhammaddigital.com/og-image.jpg" />
+        <meta property="og:image:secure_url" content="https://contentpulse.malikhammaddigital.com/og-image.jpg" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content="https://contentpulse.malikhammaddigital.com" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="ContentPulse AI" />
       </head>
       <body className="min-h-screen bg-[#07090E] text-slate-100 font-sans selection:bg-violet-500/30 selection:text-violet-200 flex flex-col">
         {children}
