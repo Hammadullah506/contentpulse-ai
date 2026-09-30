@@ -40,24 +40,42 @@ export function Logo({
           {/* Subtle internal gradient aura */}
           <div className="absolute inset-0 bg-gradient-to-br from-violet-500/25 via-transparent to-cyan-500/20 pointer-events-none" />
 
-          {/* High-Tech Custom SVG: Neural Pulse Wave intertwined with "M" Geometry */}
+          {/* High-Tech Custom SVG: Neural Pulse Core with 6 Orbital Nodes & Pulse Heartbeat */}
           <svg
-            className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 relative z-10 transition-transform group-hover:scale-110 duration-200"
-            viewBox="0 0 24 24"
+            className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 transition-transform group-hover:scale-110 duration-200"
+            viewBox="0 0 100 100"
             fill="none"
-            stroke="currentColor"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
           >
-            {/* Base Heartbeat / Repurposing Pulse Wave with stylized M peak */}
+            <defs>
+              <linearGradient id="header-pulse-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#a855f7" />
+                <stop offset="50%" stopColor="#6366f1" />
+                <stop offset="100%" stopColor="#22d3ee" />
+              </linearGradient>
+            </defs>
+
+            {/* Orbital Ring with 6 Nodes */}
+            <circle cx="50" cy="50" r="38" stroke="#6366f1" strokeWidth="1.5" strokeDasharray="3 4" opacity="0.4" />
+            <circle cx="50" cy="12" r="2.5" fill="#22d3ee" />
+            <circle cx="83" cy="31" r="2.5" fill="#818cf8" />
+            <circle cx="83" cy="69" r="2.5" fill="#a78bfa" />
+            <circle cx="50" cy="88" r="2.5" fill="#38bdf8" />
+            <circle cx="17" cy="69" r="2.5" fill="#c084fc" />
+            <circle cx="17" cy="31" r="2.5" fill="#06b6d4" />
+
+            {/* Neural Heartbeat Pulse Line with M geometric peak */}
             <path
-              d="M2 13h3l2.2-6.5L10 18l3-12 2.5 7.5H22"
-              className="stroke-cyan-400 transition-colors group-hover:stroke-cyan-300"
+              d="M 16 50 L 30 50 L 39 28 L 47 72 L 55 35 L 63 60 L 70 50 L 84 50"
+              fill="none"
+              stroke="url(#header-pulse-grad)"
+              strokeWidth="5.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
-            {/* Center Dynamic AI Pulse Spark */}
-            <circle cx="11.5" cy="11.5" r="1.5" fill="#a78bfa" className="animate-ping origin-center" />
-            <circle cx="11.5" cy="11.5" r="1.5" fill="#c084fc" />
+            
+            {/* Radiant Spark Core */}
+            <circle cx="50" cy="50" r="4.5" fill="#22d3ee" className="animate-ping origin-center opacity-70" />
+            <circle cx="50" cy="50" r="3" fill="#ffffff" />
           </svg>
 
           {/* Founder Identity Live Beacon Dot (Malik Hammad verified) */}

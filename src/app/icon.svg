@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E1322" />
+      <stop offset="50%" stop-color="#080B14" />
+      <stop offset="100%" stop-color="#04060A" />
+    </linearGradient>
+
+    <!-- Border Ring Gradient -->
+    <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="40%" stop-color="#6366f1" />
+      <stop offset="70%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+
+    <!-- Pulse Waveform Gradient -->
+    <linearGradient id="pulse-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="35%" stop-color="#6366f1" />
+      <stop offset="70%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+
+    <!-- Star Glow Filter -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <radialGradient id="core-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.8" />
+      <stop offset="40%" stop-color="#8b5cf6" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Squircle App Shield (ChatGPT / Claude / Apple style) -->
+  <rect x="24" y="24" width="464" height="464" rx="112" fill="url(#bg-grad)" stroke="url(#ring-grad)" stroke-width="14" />
+
+  <!-- Ambient Glow Behind Core -->
+  <circle cx="256" cy="256" r="140" fill="url(#core-glow)" />
+
+  <!-- 6 Platform Orbital Nodes (Twitter, Quora, LinkedIn, WA, Slides, Video) -->
+  <g opacity="0.85">
+    <!-- Orbital Ring -->
+    <circle cx="256" cy="256" r="160" stroke="#6366f1" stroke-width="3" stroke-dasharray="10 14" opacity="0.3" />
+
+    <!-- 6 Hexagonal Orbit Beacons -->
+    <circle cx="256" cy="96" r="8" fill="#22d3ee" filter="url(#glow)" />
+    <circle cx="394" cy="176" r="8" fill="#818cf8" filter="url(#glow)" />
+    <circle cx="394" cy="336" r="8" fill="#a78bfa" filter="url(#glow)" />
+    <circle cx="256" cy="416" r="8" fill="#38bdf8" filter="url(#glow)" />
+    <circle cx="118" cy="336" r="8" fill="#c084fc" filter="url(#glow)" />
+    <circle cx="118" cy="176" r="8" fill="#06b6d4" filter="url(#glow)" />
+  </g>
+
+  <!-- Central Dynamic "Pulse" Ribbon intertwining M (Malik) + AI Wave -->
+  <!-- Back Arc Wave -->
+  <path
+    d="M 120 256 Q 180 140, 256 160 T 392 256"
+    fill="none"
+    stroke="#8b5cf6"
+    stroke-width="12"
+    stroke-linecap="round"
+    opacity="0.4"
+  />
+
+  <!-- High-Energy Heartbeat / Frequency Pulse Wave -->
+  <path
+    d="M 96 256 L 160 256 L 204 148 L 244 364 L 284 180 L 320 300 L 352 256 L 416 256"
+    fill="none"
+    stroke="url(#pulse-grad)"
+    stroke-width="26"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    filter="url(#glow)"
+  />
+
+  <!-- Inner Spark Pulse Core -->
+  <circle cx="256" cy="256" r="18" fill="#ffffff" filter="url(#glow)" />
+  <circle cx="256" cy="256" r="10" fill="#22d3ee" />
+
+  <!-- Founder Identity Beacon (Bottom Right) -->
+  <circle cx="410" cy="410" r="16" fill="#10b981" stroke="#080B14" stroke-width="6" />
+</svg>
