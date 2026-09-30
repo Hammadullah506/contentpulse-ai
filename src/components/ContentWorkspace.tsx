@@ -140,8 +140,8 @@ export function ContentWorkspace({
   };
 
   return (
-    <div id="workspace-section" className="w-full max-w-5xl mx-auto px-4 sm:px-6 mb-12">
-      <div className="glass-panel-glow rounded-3xl p-5 sm:p-8 border border-violet-500/25 relative overflow-hidden shadow-2xl">
+    <div id="workspace-section" className="w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mb-12">
+      <div className="glass-panel-glow rounded-3xl p-4 sm:p-7 2xl:p-9 border border-violet-500/25 relative overflow-hidden shadow-2xl">
         
         {/* Subtle decorative glow */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -347,7 +347,7 @@ export function ContentWorkspace({
             </div>
             <textarea
               id={textInputId}
-              rows={8}
+              rows={7}
               value={content}
               onChange={(e) => {
                 setContent(e.target.value);

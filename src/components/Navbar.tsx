@@ -52,7 +52,7 @@ export function Navbar({
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-800/80 bg-[#07090E]/95 backdrop-blur-xl transition-all shadow-md shadow-black/30">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 lg:h-20 flex items-center justify-between">
+      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 lg:h-20 flex items-center justify-between">
         
         {/* Left: Brand Logo with Malik Hammad / NEXUS PULSE Identity */}
         <div className="flex items-center min-w-0">

@@ -28,7 +28,7 @@ export function FeaturesStrip() {
   ];
 
   return (
-    <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 mb-16">
+    <section className="w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mb-16">
       <div className="text-center mb-8">
         <h3 className="text-xl sm:text-2xl font-bold text-white font-[family-name:var(--font-outfit)]">
           Why ContentPulse AI Wins Over Generic ChatGPT

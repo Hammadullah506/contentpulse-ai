@@ -121,7 +121,7 @@ ${data.outputs.videoScript.scenes
   const { twitter, quora, linkedin, whatsapp, carousel, videoScript } = data.outputs;
 
   return (
-    <div id="results-section" className="w-full max-w-5xl mx-auto px-4 sm:px-6 mb-16 animate-in fade-in duration-300">
+    <div id="results-section" className="w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mb-16 animate-in fade-in duration-300">
       
       {/* Top Bar with Title, Stats & Global Exports */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">

@@ -117,29 +117,29 @@ export function Hero({ onScrollToWorkspace }: HeroProps) {
   const currentFeature = TYPEWRITER_FEATURES[featureIndex];
 
   return (
-    <section className="relative pt-10 pb-8 px-4 sm:px-6 lg:px-8 overflow-hidden text-center">
+    <section className="relative pt-6 sm:pt-10 lg:pt-14 pb-6 sm:pb-8 px-3 sm:px-6 lg:px-8 overflow-hidden text-center w-full">
       {/* Ambient background glows */}
-      <div className="radial-blur-ambient top-0 left-1/4 w-96 h-96 bg-violet-600 -z-10" />
-      <div className="radial-blur-ambient top-10 right-1/4 w-96 h-96 bg-cyan-500 -z-10" />
+      <div className="radial-blur-ambient top-0 left-1/4 w-72 sm:w-96 2xl:w-[500px] h-72 sm:h-96 2xl:h-[500px] bg-violet-600 -z-10" />
+      <div className="radial-blur-ambient top-10 right-1/4 w-72 sm:w-96 2xl:w-[500px] h-72 sm:h-96 2xl:h-[500px] bg-cyan-500 -z-10" />
 
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto">
         
         {/* Dynamic Live Feature Pill Indicator */}
         <div
-          className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-6 text-xs sm:text-sm font-semibold transition-all duration-300 shadow-lg backdrop-blur-xl ${currentFeature.badgeClass}`}
+          className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-1.5 rounded-full border mb-4 sm:mb-6 text-[11px] sm:text-sm font-semibold transition-all duration-300 shadow-lg backdrop-blur-xl ${currentFeature.badgeClass}`}
         >
-          <Sparkles className="w-4 h-4 animate-spin text-amber-400" />
+          <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin text-amber-400 shrink-0" />
           <span className="font-bold">{currentFeature.badgeText}</span>
-          <span className="text-slate-500">•</span>
+          <span className="text-slate-500 hidden xs:inline">•</span>
           <span className="text-slate-300 font-normal hidden sm:inline">
             {currentFeature.benefit}
           </span>
         </div>
 
         {/* Main Hero Headline with DYNAMIC TYPEWRITER */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.2] mb-5 font-[family-name:var(--font-outfit)] min-h-[140px] sm:min-h-[160px] flex flex-col justify-center items-center">
+        <h1 className="text-2xl xs:text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-white leading-[1.2] mb-4 sm:mb-5 font-[family-name:var(--font-outfit)] min-h-[120px] sm:min-h-[160px] 2xl:min-h-[190px] flex flex-col justify-center items-center">
           <span className="text-slate-200">1 Technical Blog Article →</span>
-          <div className="mt-1 flex items-center justify-center flex-wrap gap-1">
+          <div className="mt-1 flex items-center justify-center flex-wrap gap-1 px-1">
             <span
               className={`bg-gradient-to-r ${currentFeature.color} bg-clip-text text-transparent transition-all duration-200 ${currentFeature.fontClass}`}
             >
@@ -147,16 +147,16 @@ export function Hero({ onScrollToWorkspace }: HeroProps) {
             </span>
             {/* Animated Blinking Cursor */}
             <span
-              className={`inline-block w-[3px] h-8 sm:h-12 rounded-full ${currentFeature.cursorColor} animate-pulse ml-1 align-middle`}
+              className={`inline-block w-[3px] h-6 sm:h-11 2xl:h-14 rounded-full ${currentFeature.cursorColor} animate-pulse ml-1 align-middle`}
             />
           </div>
-          <span className="text-xl sm:text-2xl font-bold text-slate-400 mt-2">
+          <span className="text-lg xs:text-xl sm:text-2xl 2xl:text-3xl font-bold text-slate-400 mt-2">
             in only <span className="text-emerald-400">5 seconds</span>.
           </span>
         </h1>
 
         {/* Sub-headline */}
-        <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
+        <p className="text-xs sm:text-base 2xl:text-lg text-slate-300 max-w-2xl 2xl:max-w-3xl mx-auto leading-relaxed mb-6 sm:mb-8 px-2">
           Designed for engineering leaders, dev advocates, and founders. Paste your blog URL or text, and let AI repurpose it into 6 platform-native formats with zero prompt friction.
         </p>
 
