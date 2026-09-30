@@ -27,13 +27,13 @@ export const metadata: Metadata = {
     'Turn any technical blog article or URL into viral Twitter threads, high-authority Quora answers, B2B LinkedIn posts, and WhatsApp/Telegram executive summaries in 5 seconds.',
   icons: {
     icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.svg?v=2', type: 'image/svg+xml' },
+      { url: '/brand-icon.jpg', sizes: '32x32', type: 'image/jpeg' },
     ],
     apple: [
-      { url: '/icon.svg', sizes: '180x180', type: 'image/svg+xml' },
+      { url: '/brand-icon.jpg', sizes: '180x180', type: 'image/jpeg' },
     ],
-    shortcut: ['/icon.svg'],
+    shortcut: ['/icon.svg?v=2'],
   },
   keywords: [
     'Content Repurposing',
@@ -68,6 +68,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable} dark antialiased`}>
+      <head>
+        <link rel="icon" href="/icon.svg?v=2" type="image/svg+xml" />
+        <link rel="alternate icon" href="/brand-icon.jpg" type="image/jpeg" />
+        <link rel="apple-touch-icon" href="/brand-icon.jpg" />
+      </head>
       <body className="min-h-screen bg-[#07090E] text-slate-100 font-sans selection:bg-violet-500/30 selection:text-violet-200 flex flex-col">
         {children}
       </body>
