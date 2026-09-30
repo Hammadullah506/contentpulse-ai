@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '@/lib/auth-context';
-import { X, Mail, ShieldCheck, Check, Sparkles, User, LogOut } from 'lucide-react';
+import { X, Mail, ShieldCheck, Check, Sparkles, User, LogOut, Crown } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -11,7 +11,7 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
-  const { user, loginWithGoogle, loginWithEmail, logout } = useAuth();
+  const { user, loginWithGoogle, loginWithEmail, loginAsFounder, logout } = useAuth();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +23,16 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
     setIsLoading(true);
     await loginWithGoogle();
     setIsLoading(false);
-    setSuccessMsg('Successfully signed in with Google!');
+    setSuccessMsg('Successfully signed in with Google! 3 Free Credits added.');
+    setTimeout(() => {
+      setSuccessMsg(null);
+      onClose();
+    }, 800);
+  };
+
+  const handleFounderLogin = () => {
+    loginAsFounder();
+    setSuccessMsg('Logged in as Founder (Malik Hammad) — PRO Plan Active!');
     setTimeout(() => {
       setSuccessMsg(null);
       onClose();
@@ -36,7 +45,7 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
     setIsLoading(true);
     await loginWithEmail(email, name);
     setIsLoading(false);
-    setSuccessMsg('Signed in successfully!');
+    setSuccessMsg('Signed in successfully! 3 Free Credits added.');
     setTimeout(() => {
       setSuccessMsg(null);
       onClose();
@@ -55,17 +64,17 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
             </div>
             <div>
               <h3 className="text-lg font-bold text-white font-[family-name:var(--font-outfit)]">
-                {user ? 'Your Account' : 'Welcome to ContentPulse'}
+                {user ? 'Your Account' : 'Sign In to ContentPulse'}
               </h3>
               <p className="text-xs text-slate-400">
-                {user ? 'Manage your profile and credits' : 'Sign in to save and sync your campaigns'}
+                {user ? 'Manage your profile and credits' : 'Claim 3 Free Repurposing Credits instantly'}
               </p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -75,7 +84,7 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
         {user ? (
           <div className="mt-5 space-y-4">
             <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 flex items-center gap-3.5">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-violet-600 to-cyan-500 flex items-center justify-center font-bold text-white text-base">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-violet-600 to-cyan-500 flex items-center justify-center font-bold text-white text-base shadow-md">
                 {user.name.slice(0, 2).toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
@@ -160,7 +169,7 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
             <button
               onClick={handleGoogleLogin}
               disabled={isLoading}
-              className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold text-xs flex items-center justify-center gap-2.5 shadow-md transition-all cursor-pointer"
+              className="w-full py-3 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs flex items-center justify-center gap-2.5 shadow-lg transition-all cursor-pointer"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -180,7 +189,16 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
                 />
               </svg>
-              <span>Continue with Google</span>
+              <span>Continue with Google (1-Click)</span>
+            </button>
+
+            {/* Quick Founder / Demo Account Button */}
+            <button
+              onClick={handleFounderLogin}
+              className="w-full py-2.5 px-4 rounded-xl bg-violet-950/40 hover:bg-violet-900/50 border border-violet-500/40 text-violet-300 font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+            >
+              <Crown className="w-3.5 h-3.5 text-amber-300" />
+              <span>Sign in as Founder (Malik Hammad • PRO)</span>
             </button>
 
             <div className="relative flex items-center justify-center py-1">
@@ -194,13 +212,13 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
             <form onSubmit={handleEmailSubmit} className="space-y-3">
               <div>
                 <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
-                  Full Name (Optional)
+                  Full Name
                 </label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Malik Hammad"
+                  placeholder="Your Name"
                   className="w-full px-3.5 py-2 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-violet-500"
                 />
               </div>
@@ -214,7 +232,7 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="founder@example.com"
+                  placeholder="name@company.com"
                   className="w-full px-3.5 py-2 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-violet-500"
                 />
               </div>
@@ -225,13 +243,13 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
                 className="w-full py-2.5 px-4 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs transition-all shadow-md shadow-violet-600/25 flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Mail className="w-3.5 h-3.5" />
-                <span>Sign In / Register</span>
+                <span>Create Free Account</span>
               </button>
             </form>
 
             <div className="pt-2 text-center text-[11px] text-slate-500 flex items-center justify-center gap-1">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Free account includes 3 full repurposing credits monthly.</span>
+              <span>Includes 3 Free Article Repurposes Monthly. No card required.</span>
             </div>
           </div>
         )}

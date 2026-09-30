@@ -34,6 +34,7 @@ interface ContentWorkspaceProps {
     content?: string;
   };
   onOpenPricing?: () => void;
+  onOpenAuth?: () => void;
 }
 
 export function ContentWorkspace({
@@ -41,6 +42,7 @@ export function ContentWorkspace({
   isLoading,
   initialData,
   onOpenPricing,
+  onOpenAuth,
 }: ContentWorkspaceProps) {
   const { user, canGenerate, consumeCredit } = useAuth();
   const urlInputId = useId();
@@ -111,6 +113,11 @@ export function ContentWorkspace({
     e.preventDefault();
     if (!content.trim() && !url.trim()) {
       alert('Please enter article content or provide a URL to repurpose.');
+      return;
+    }
+
+    if (!user) {
+      onOpenAuth?.();
       return;
     }
 
@@ -450,12 +457,18 @@ export function ContentWorkspace({
               {isLoading ? (
                 <>
                   <RefreshCw className="w-5 h-5 animate-spin text-white" />
-                  <span>Repurposing into 4 Viral Formats (5s Pulse)...</span>
+                  <span>Repurposing into 6 Viral Formats (5s Pulse)...</span>
+                </>
+              ) : !user ? (
+                <>
+                  <Zap className="w-5 h-5 text-amber-300 fill-amber-300" />
+                  <span>Sign In to Repurpose Article (3 Free Credits)</span>
+                  <Sparkles className="w-4 h-4 text-cyan-200" />
                 </>
               ) : (
                 <>
                   <Zap className="w-5 h-5 text-amber-300 fill-amber-300" />
-                  <span>Generate 4 Viral Formats Now</span>
+                  <span>Generate 6 Viral Formats Now</span>
                   <Sparkles className="w-4 h-4 text-cyan-200" />
                 </>
               )}

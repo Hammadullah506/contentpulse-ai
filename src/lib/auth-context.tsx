@@ -8,36 +8,38 @@ interface AuthContextType {
   isAuthenticated: boolean;
   loginWithGoogle: () => Promise<void>;
   loginWithEmail: (email: string, name?: string) => Promise<void>;
+  loginAsFounder: () => void;
   logout: () => void;
   upgradePlan: (plan: PlanType) => void;
   canGenerate: () => boolean;
   consumeCredit: () => boolean;
 }
 
-const DEFAULT_GUEST_USER: UserProfile = {
-  id: 'usr_guest_demo',
+const FOUNDER_PROFILE: UserProfile = {
+  id: 'usr_founder_malik',
   name: 'Malik Hammad',
   email: 'founder@malikhammaddigital.com',
-  avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
-  plan: 'free',
-  creditsUsed: 1,
-  maxCredits: 3,
-  joinedDate: 'Oct 2026',
+  avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80',
+  plan: 'pro',
+  creditsUsed: 0,
+  maxCredits: -1, // Unlimited
+  joinedDate: 'Founder • NEXUS PULSE',
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+  // First-time visitors start as guest (null) unless they have previously signed in
   const [user, setUser] = useState<UserProfile | null>(() => {
     if (typeof window !== 'undefined') {
       try {
         const stored = localStorage.getItem('contentpulse_auth_user');
-        return stored ? JSON.parse(stored) : DEFAULT_GUEST_USER;
+        return stored ? JSON.parse(stored) : null;
       } catch {
-        return DEFAULT_GUEST_USER;
+        return null;
       }
     }
-    return DEFAULT_GUEST_USER;
+    return null;
   });
 
   const saveUser = (u: UserProfile | null) => {
@@ -54,14 +56,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const loginWithGoogle = async () => {
-    // Simulates quick Google OAuth with a verified profile
     const googleUser: UserProfile = {
       id: `usr_google_${Date.now()}`,
-      name: 'Malik Hammad (Google)',
-      email: 'malik@nexusdigital.com',
+      name: 'Google User',
+      email: 'user@gmail.com',
       avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80',
-      plan: user?.plan || 'free',
-      creditsUsed: user?.creditsUsed || 0,
+      plan: 'free',
+      creditsUsed: 0,
       maxCredits: 3,
       joinedDate: new Date().toLocaleDateString(undefined, { month: 'short', year: 'numeric' }),
     };
@@ -73,12 +74,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       id: `usr_email_${Date.now()}`,
       name: name || email.split('@')[0],
       email,
-      plan: user?.plan || 'free',
-      creditsUsed: user?.creditsUsed || 0,
+      plan: 'free',
+      creditsUsed: 0,
       maxCredits: 3,
       joinedDate: new Date().toLocaleDateString(undefined, { month: 'short', year: 'numeric' }),
     };
     saveUser(emailUser);
+  };
+
+  const loginAsFounder = () => {
+    saveUser(FOUNDER_PROFILE);
   };
 
   const logout = () => {
@@ -90,23 +95,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const updated: UserProfile = {
       ...user,
       plan,
-      maxCredits: plan === 'free' ? 3 : -1, // -1 means unlimited
+      maxCredits: plan === 'free' ? 3 : -1,
     };
     saveUser(updated);
   };
 
   const canGenerate = (): boolean => {
-    if (!user) return true;
+    if (!user) return false; // Must be logged in
     if (user.plan === 'pro' || user.plan === 'agency') return true;
     return user.creditsUsed < user.maxCredits;
   };
 
   const consumeCredit = (): boolean => {
-    if (!user) return true;
+    if (!user) return false;
     if (user.plan === 'pro' || user.plan === 'agency') return true;
 
     if (user.creditsUsed >= user.maxCredits) {
-      return false; // Limit reached!
+      return false;
     }
 
     const updated: UserProfile = {
@@ -124,6 +129,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isAuthenticated: !!user,
         loginWithGoogle,
         loginWithEmail,
+        loginAsFounder,
         logout,
         upgradePlan,
         canGenerate,

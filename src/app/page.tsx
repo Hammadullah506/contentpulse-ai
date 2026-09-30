@@ -233,6 +233,7 @@ function ContentPulseApp() {
           isLoading={isLoading}
           initialData={workspaceData}
           onOpenPricing={() => setIsPricingModalOpen(true)}
+          onOpenAuth={() => setIsAuthModalOpen(true)}
         />
 
         {/* Repurposed Output Preview (Twitter, Quora, LinkedIn, WA, Slides, Reel) */}
