@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { UserProfile, PlanType } from '@/types';
 
 interface AuthContextType {
@@ -29,10 +29,18 @@ const FOUNDER_PROFILE: UserProfile = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  // First-time visitors start as guest (null) unless they have previously signed in
   const [user, setUser] = useState<UserProfile | null>(() => {
     if (typeof window !== 'undefined') {
       try {
+        // 1. Check cookie first (set by Google OAuth)
+        const match = document.cookie.match(new RegExp('(^| )contentpulse_user=([^;]+)'));
+        if (match && match[2]) {
+          const parsed = JSON.parse(decodeURIComponent(match[2]));
+          localStorage.setItem('contentpulse_auth_user', JSON.stringify(parsed));
+          return parsed;
+        }
+
+        // 2. Check localStorage
         const stored = localStorage.getItem('contentpulse_auth_user');
         return stored ? JSON.parse(stored) : null;
       } catch {
@@ -42,13 +50,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return null;
   });
 
+  // Sync cookie updates if redirected back from Google OAuth
+  useEffect(() => {
+    try {
+      const match = document.cookie.match(new RegExp('(^| )contentpulse_user=([^;]+)'));
+      if (match && match[2]) {
+        const parsed = JSON.parse(decodeURIComponent(match[2]));
+        setUser(parsed);
+        localStorage.setItem('contentpulse_auth_user', JSON.stringify(parsed));
+      }
+    } catch (e) {
+      console.warn('Cookie sync warning', e);
+    }
+  }, []);
+
   const saveUser = (u: UserProfile | null) => {
     setUser(u);
     try {
       if (u) {
         localStorage.setItem('contentpulse_auth_user', JSON.stringify(u));
+        document.cookie = `contentpulse_user=${encodeURIComponent(JSON.stringify(u))}; path=/; max-age=2592000`;
       } else {
         localStorage.removeItem('contentpulse_auth_user');
+        document.cookie = 'contentpulse_user=; path=/; max-age=0';
       }
     } catch (e) {
       console.warn('LocalStorage save failed', e);
@@ -56,17 +80,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const loginWithGoogle = async () => {
-    const googleUser: UserProfile = {
-      id: `usr_google_${Date.now()}`,
-      name: 'Google User',
-      email: 'user@gmail.com',
-      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80',
-      plan: 'free',
-      creditsUsed: 0,
-      maxCredits: 3,
-      joinedDate: new Date().toLocaleDateString(undefined, { month: 'short', year: 'numeric' }),
-    };
-    saveUser(googleUser);
+    // Redirect to backend Google OAuth initiation route
+    window.location.href = '/api/auth/google/url';
   };
 
   const loginWithEmail = async (email: string, name?: string) => {
@@ -101,7 +116,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const canGenerate = (): boolean => {
-    if (!user) return false; // Must be logged in
+    if (!user) return false;
     if (user.plan === 'pro' || user.plan === 'agency') return true;
     return user.creditsUsed < user.maxCredits;
   };
