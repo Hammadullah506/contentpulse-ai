@@ -27,13 +27,9 @@ export const metadata: Metadata = {
     'Turn long-form technical writing and documentation into platform-native threads, LinkedIn updates, and executive briefings.',
   icons: {
     icon: [
-      { url: '/icon.svg?v=2', type: 'image/svg+xml' },
-      { url: '/brand-icon.jpg', sizes: '32x32', type: 'image/jpeg' },
+      { url: '/icon.svg?v=3', type: 'image/svg+xml' },
     ],
-    apple: [
-      { url: '/brand-icon.jpg', sizes: '180x180', type: 'image/jpeg' },
-    ],
-    shortcut: ['/icon.svg?v=2'],
+    shortcut: ['/icon.svg?v=3'],
   },
   authors: [{ name: 'Malik Hammad', url: 'https://malikhammaddigital.com' }],
   creator: 'Malik Hammad',
