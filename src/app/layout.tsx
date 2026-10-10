@@ -27,9 +27,14 @@ export const metadata: Metadata = {
     'Turn long-form technical writing and documentation into platform-native threads, LinkedIn updates, and executive briefings.',
   icons: {
     icon: [
-      { url: '/icon.svg?v=3', type: 'image/svg+xml' },
+      { url: '/favicon.ico?v=5', sizes: 'any' },
+      { url: '/icon.png?v=5', type: 'image/png' },
+      { url: '/icon.svg?v=5', type: 'image/svg+xml' },
     ],
-    shortcut: ['/icon.svg?v=3'],
+    shortcut: ['/favicon.ico?v=5'],
+    apple: [
+      { url: '/apple-icon.png?v=5' },
+    ],
   },
   authors: [{ name: 'Malik Hammad', url: 'https://malikhammaddigital.com' }],
   creator: 'Malik Hammad',
@@ -66,9 +71,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable} dark antialiased`}>
       <head>
-        <link rel="icon" href="/icon.svg?v=2" type="image/svg+xml" />
-        <link rel="alternate icon" href="/brand-icon.jpg" type="image/jpeg" />
-        <link rel="apple-touch-icon" href="/brand-icon.jpg" />
+        <link rel="icon" href="/favicon.ico?v=5" sizes="any" />
+        <link rel="icon" href="/icon.png?v=5" type="image/png" />
+        <link rel="icon" href="/icon.svg?v=5" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-icon.png?v=5" />
       </head>
       <body className="min-h-screen bg-black text-zinc-100 font-sans selection:bg-zinc-800 selection:text-white flex flex-col">
         {children}
