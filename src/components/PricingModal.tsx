@@ -17,7 +17,15 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
 
   if (!isOpen) return null;
 
+  const LEMONSQUEEZY_PRO_URL = 'https://contentpulse-ai.lemonsqueezy.com/checkout/buy/999ee106-f6d7-4810-a9d3-a36f3bf30773';
+
   const handleUpgrade = (plan: PlanType) => {
+    if (plan === 'pro') {
+      const emailParam = user?.email ? `?checkout[email]=${encodeURIComponent(user.email)}` : '';
+      window.open(`${LEMONSQUEEZY_PRO_URL}${emailParam}`, '_blank');
+      return;
+    }
+
     upgradePlan(plan);
     setUpgradedPlan(plan);
     setTimeout(() => {
@@ -141,9 +149,9 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
 
               <div className="my-3">
                 <span className="text-2xl font-bold text-white font-mono">
-                  ${billingCycle === 'yearly' ? '12' : '19'}
+                  PKR 4,999
                 </span>
-                <span className="text-xs text-zinc-400"> / mo</span>
+                <span className="text-xs text-zinc-400"> / mo <span className="text-zinc-500">(~$18 USD)</span></span>
               </div>
 
               <ul className="space-y-2 text-xs text-zinc-300 pt-3 border-t border-zinc-800">
