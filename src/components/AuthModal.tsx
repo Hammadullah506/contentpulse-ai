@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '@/lib/auth-context';
-import { X, Mail, ShieldCheck, Check, Sparkles, User, LogOut, Crown } from 'lucide-react';
+import { X, Mail, Check, User, LogOut } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -23,20 +23,20 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
     setIsLoading(true);
     await loginWithGoogle();
     setIsLoading(false);
-    setSuccessMsg('Successfully signed in with Google! 3 Free Credits added.');
+    setSuccessMsg('Signed in successfully.');
     setTimeout(() => {
       setSuccessMsg(null);
       onClose();
-    }, 800);
+    }, 600);
   };
 
   const handleFounderLogin = () => {
     loginAsFounder();
-    setSuccessMsg('Logged in as Founder (Malik Hammad) — PRO Plan Active!');
+    setSuccessMsg('Signed in as Malik Hammad (Pro Plan).');
     setTimeout(() => {
       setSuccessMsg(null);
       onClose();
-    }, 800);
+    }, 600);
   };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
@@ -45,110 +45,79 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
     setIsLoading(true);
     await loginWithEmail(email, name);
     setIsLoading(false);
-    setSuccessMsg('Signed in successfully! 3 Free Credits added.');
+    setSuccessMsg('Account created.');
     setTimeout(() => {
       setSuccessMsg(null);
       onClose();
-    }, 800);
+    }, 600);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
-      <div className="relative w-full max-w-md max-h-[90dvh] overflow-y-auto rounded-3xl glass-panel-glow border border-violet-500/30 p-5 sm:p-7 text-slate-100 shadow-2xl my-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-150">
+      <div className="relative w-full max-w-sm rounded-xl bg-zinc-950 border border-zinc-850 p-6 text-zinc-100 shadow-2xl">
         
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-violet-500/20 text-violet-400 border border-violet-500/30">
-              <User className="w-5 h-5" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-white font-[family-name:var(--font-outfit)]">
-                {user ? 'Your Account' : 'Sign In to ContentPulse'}
-              </h3>
-              <p className="text-xs text-slate-400">
-                {user ? 'Manage your profile and credits' : 'Claim 3 Free Repurposing Credits instantly'}
-              </p>
-            </div>
+        <div className="flex items-center justify-between pb-3 border-b border-zinc-850">
+          <div className="flex items-center gap-2">
+            <User className="w-4 h-4 text-zinc-400" />
+            <h3 className="text-sm font-semibold text-white">
+              {user ? 'Account Settings' : 'Sign In'}
+            </h3>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer"
+            className="p-1 rounded text-zinc-500 hover:text-white transition-colors cursor-pointer"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* If Already Logged In */}
         {user ? (
-          <div className="mt-5 space-y-4">
-            <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 flex items-center gap-3.5">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-violet-600 to-cyan-500 flex items-center justify-center font-bold text-white text-base shadow-md">
-                {user.name.slice(0, 2).toUpperCase()}
+          <div className="mt-4 space-y-4">
+            <div className="p-3.5 rounded-lg bg-black border border-zinc-850 flex items-center justify-between">
+              <div>
+                <h4 className="text-sm font-semibold text-white">{user.name}</h4>
+                <p className="text-xs text-zinc-500">{user.email}</p>
               </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <h4 className="text-sm font-bold text-white truncate">{user.name}</h4>
-                  <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase ${
-                      user.plan === 'pro'
-                        ? 'bg-violet-500/20 text-violet-300 border-violet-500/40'
-                        : user.plan === 'agency'
-                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                        : 'bg-slate-800 text-slate-400 border-slate-700'
-                    }`}
-                  >
-                    {user.plan} Plan
-                  </span>
-                </div>
-                <p className="text-xs text-slate-400 truncate mt-0.5">{user.email}</p>
-              </div>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300 uppercase">
+                {user.plan}
+              </span>
             </div>
 
-            {/* Usage Credits Tracker */}
-            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800 space-y-2">
-              <div className="flex items-center justify-between text-xs font-semibold">
-                <span className="text-slate-300">Monthly Repurposing Credits</span>
-                <span className={user.plan === 'pro' ? 'text-violet-400' : 'text-cyan-400'}>
+            {/* Credits Tracker */}
+            <div className="p-3.5 rounded-lg bg-black border border-zinc-850 text-xs">
+              <div className="flex items-center justify-between text-zinc-400">
+                <span>Usage Credits</span>
+                <span className="text-white font-mono">
                   {user.plan === 'pro' || user.plan === 'agency'
-                    ? 'Unlimited Active ⚡'
+                    ? 'Unlimited'
                     : `${user.creditsUsed} / ${user.maxCredits} Used`}
                 </span>
               </div>
-
-              {user.plan === 'free' && (
-                <div className="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
-                  <div
-                    className="bg-gradient-to-r from-violet-500 to-cyan-400 h-full rounded-full transition-all duration-300"
-                    style={{ width: `${Math.min(100, (user.creditsUsed / user.maxCredits) * 100)}%` }}
-                  />
-                </div>
-              )}
             </div>
 
-            {/* Upgrade CTA if on free */}
             {user.plan === 'free' && onOpenPricing && (
               <button
                 onClick={() => {
                   onClose();
                   onOpenPricing();
                 }}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white font-bold text-xs shadow-lg shadow-violet-600/25 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-2 px-3 rounded-md bg-white hover:bg-zinc-200 text-black text-xs font-semibold transition-colors cursor-pointer"
               >
-                <Sparkles className="w-4 h-4 text-amber-300" />
-                <span>Upgrade to Pro (Unlimited Access)</span>
+                Upgrade to Pro
               </button>
             )}
 
-            {/* Logout button */}
+            {/* Logout */}
             <div className="pt-2 flex justify-end">
               <button
                 onClick={() => {
                   logout();
                   onClose();
                 }}
-                className="flex items-center gap-1.5 text-xs text-rose-400 hover:text-rose-300 transition-colors cursor-pointer py-1 px-2"
+                className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 transition-colors cursor-pointer"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 <span>Sign Out</span>
@@ -157,9 +126,9 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
           </div>
         ) : (
           /* Sign In Form */
-          <div className="mt-5 space-y-4">
+          <div className="mt-4 space-y-3.5">
             {successMsg && (
-              <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
+              <div className="p-2.5 rounded bg-zinc-900 border border-zinc-800 text-emerald-400 text-xs flex items-center gap-2">
                 <Check className="w-4 h-4" />
                 <span>{successMsg}</span>
               </div>
@@ -169,7 +138,7 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
             <button
               onClick={handleGoogleLogin}
               disabled={isLoading}
-              className="w-full py-3 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs flex items-center justify-center gap-2.5 shadow-lg transition-all cursor-pointer"
+              className="w-full py-2 px-3 rounded-md bg-white hover:bg-zinc-200 text-black font-semibold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -189,68 +158,56 @@ export function AuthModal({ isOpen, onClose, onOpenPricing }: AuthModalProps) {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
                 />
               </svg>
-              <span>Continue with Google (1-Click)</span>
+              <span>Continue with Google</span>
             </button>
 
-            {/* Quick Founder / Demo Account Button */}
+            {/* Quick Demo Sign In */}
             <button
               onClick={handleFounderLogin}
-              className="w-full py-2.5 px-4 rounded-xl bg-violet-950/40 hover:bg-violet-900/50 border border-violet-500/40 text-violet-300 font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+              className="w-full py-1.5 px-3 rounded-md bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs font-medium transition-colors cursor-pointer"
             >
-              <Crown className="w-3.5 h-3.5 text-amber-300" />
-              <span>Sign in as Founder (Malik Hammad • PRO)</span>
+              Quick Test: Sign in as Malik Hammad
             </button>
 
             <div className="relative flex items-center justify-center py-1">
-              <div className="border-t border-slate-800 w-full" />
-              <span className="bg-[#0B0F19] px-3 text-[11px] text-slate-500 absolute uppercase tracking-wider">
-                Or with Email
+              <div className="border-t border-zinc-850 w-full" />
+              <span className="bg-zinc-950 px-2 text-[10px] text-zinc-600 font-mono absolute uppercase">
+                Or Email
               </span>
             </div>
 
             {/* Email Form */}
-            <form onSubmit={handleEmailSubmit} className="space-y-3">
+            <form onSubmit={handleEmailSubmit} className="space-y-2.5">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
-                  Full Name
-                </label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your Name"
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-violet-500"
+                  className="w-full px-3 py-1.5 rounded-md bg-black border border-zinc-800 text-xs text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-500"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
-                  Work / Personal Email
-                </label>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@company.com"
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-violet-500"
+                  placeholder="name@example.com"
+                  className="w-full px-3 py-1.5 rounded-md bg-black border border-zinc-800 text-xs text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-500"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isLoading || !email}
-                className="w-full py-2.5 px-4 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs transition-all shadow-md shadow-violet-600/25 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-2 px-3 rounded-md bg-zinc-850 hover:bg-zinc-800 border border-zinc-750 text-white font-medium text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <Mail className="w-3.5 h-3.5" />
-                <span>Create Free Account</span>
+                <span>Sign In with Email</span>
               </button>
             </form>
-
-            <div className="pt-2 text-center text-[11px] text-slate-500 flex items-center justify-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Includes 3 Free Article Repurposes Monthly. No card required.</span>
-            </div>
           </div>
         )}
 

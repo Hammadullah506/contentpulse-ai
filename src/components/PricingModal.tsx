@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/lib/auth-context';
 import { PlanType } from '@/types';
-import { X, Check, Zap, Sparkles, ShieldCheck, Flame, Star } from 'lucide-react';
+import { X, Check } from 'lucide-react';
 
 interface PricingModalProps {
   isOpen: boolean;
@@ -27,28 +27,23 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
-      <div className="relative w-full max-w-4xl rounded-3xl glass-panel-glow border border-violet-500/30 p-6 sm:p-8 text-slate-100 shadow-2xl my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-150 overflow-y-auto">
+      <div className="relative w-full max-w-3xl rounded-xl bg-zinc-950 border border-zinc-850 p-6 sm:p-8 text-zinc-100 shadow-2xl my-8">
         
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-violet-500/20 text-violet-400 border border-violet-500/30">
-              <Zap className="w-5 h-5 text-amber-300 fill-amber-300" />
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-white font-[family-name:var(--font-outfit)]">
-                Upgrade Your Content Engine
-              </h3>
-              <p className="text-xs text-slate-400">
-                Unlock unlimited repurposing, 1080px LinkedIn PDF Slides, and 60s Reel scripts
-              </p>
-            </div>
+        <div className="flex items-center justify-between pb-4 border-b border-zinc-850">
+          <div>
+            <h3 className="text-lg font-bold text-white tracking-tight">
+              Subscription Plans
+            </h3>
+            <p className="text-xs text-zinc-400 mt-0.5">
+              Select a plan for higher limits and full export capabilities.
+            </p>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors"
+            className="p-1.5 rounded text-zinc-500 hover:text-white transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -56,235 +51,183 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
 
         {/* Billing Cycle Toggle */}
         <div className="flex items-center justify-center my-6">
-          <div className="inline-flex items-center p-1 rounded-2xl bg-slate-900 border border-slate-800 text-xs font-semibold">
+          <div className="inline-flex items-center p-0.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs">
             <button
               onClick={() => setBillingCycle('monthly')}
-              className={`px-4 py-2 rounded-xl transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-md transition-colors cursor-pointer ${
                 billingCycle === 'monthly'
-                  ? 'bg-violet-600 text-white shadow-md'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-zinc-800 text-white font-medium'
+                  : 'text-zinc-400 hover:text-white'
               }`}
             >
-              Monthly Billing
+              Monthly
             </button>
             <button
               onClick={() => setBillingCycle('yearly')}
-              className={`px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3 py-1.5 rounded-md transition-colors flex items-center gap-1.5 cursor-pointer ${
                 billingCycle === 'yearly'
-                  ? 'bg-violet-600 text-white shadow-md'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-zinc-800 text-white font-medium'
+                  : 'text-zinc-400 hover:text-white'
               }`}
             >
-              <span>Yearly Billing</span>
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold">
-                Save 35%
+              <span>Yearly</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-700 text-zinc-200 font-mono">
+                -30%
               </span>
             </button>
           </div>
         </div>
 
         {/* Pricing Cards Grid (3 Columns) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           
           {/* 1. Starter (Free) */}
-          <div
-            className={`rounded-2xl p-5 border flex flex-col justify-between transition-all ${
-              user?.plan === 'free'
-                ? 'bg-slate-900/60 border-slate-700'
-                : 'bg-slate-950/40 border-slate-800'
-            }`}
-          >
+          <div className="rounded-lg p-5 border border-zinc-850 bg-black flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between">
-                <h4 className="text-base font-bold text-white">Starter</h4>
+                <h4 className="text-sm font-semibold text-white">Starter</h4>
                 {user?.plan === 'free' && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
-                    Current Plan
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800">
+                    Current
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-400 mt-1">For casual bloggers & testing</p>
+              <p className="text-xs text-zinc-500 mt-1">Free testing tier</p>
 
-              <div className="my-4">
-                <span className="text-3xl font-extrabold text-white font-[family-name:var(--font-outfit)]">
-                  $0
-                </span>
-                <span className="text-xs text-slate-400"> / forever</span>
+              <div className="my-3">
+                <span className="text-2xl font-bold text-white font-mono">$0</span>
+                <span className="text-xs text-zinc-500"> / mo</span>
               </div>
 
-              <ul className="space-y-2.5 text-xs text-slate-300 pt-2 border-t border-slate-800/80">
+              <ul className="space-y-2 text-xs text-zinc-400 pt-3 border-t border-zinc-900">
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>3 Repurposes / Month</span>
+                  <Check className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                  <span>3 Repurposes / mo</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <Check className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
                   <span>Twitter, Quora & LinkedIn</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>Standard Generation Speed</span>
-                </li>
-                <li className="flex items-center gap-2 text-slate-500">
-                  <X className="w-3.5 h-3.5 shrink-0" />
-                  <span>No LinkedIn PDF Slides</span>
+                  <Check className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                  <span>Standard Generation</span>
                 </li>
               </ul>
             </div>
 
-            <div className="pt-6">
+            <div className="pt-5">
               <button
                 disabled={user?.plan === 'free'}
                 onClick={() => handleUpgrade('free')}
-                className="w-full py-2.5 rounded-xl border border-slate-800 text-xs font-semibold text-slate-400 disabled:opacity-40"
+                className="w-full py-2 rounded-md border border-zinc-800 text-xs font-medium text-zinc-400 disabled:opacity-40"
               >
-                {user?.plan === 'free' ? 'Active Plan' : 'Downgrade to Free'}
+                {user?.plan === 'free' ? 'Active' : 'Downgrade'}
               </button>
             </div>
           </div>
 
-          {/* 2. PRO (Most Popular) */}
-          <div className="rounded-2xl p-6 border-2 border-violet-500/80 bg-gradient-to-b from-violet-950/40 via-slate-900/80 to-[#0A0D17] relative flex flex-col justify-between shadow-xl shadow-violet-600/20 scale-[1.02]">
-            
-            {/* Most Popular Badge */}
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-[10px] font-extrabold tracking-wider uppercase flex items-center gap-1 shadow-md">
-              <Star className="w-3 h-3 fill-amber-300 text-amber-300" />
-              <span>Founder & Pro Choice</span>
-            </div>
-
+          {/* 2. PRO */}
+          <div className="rounded-lg p-5 border border-white bg-zinc-950 flex flex-col justify-between relative shadow-lg">
             <div>
               <div className="flex items-center justify-between">
-                <h4 className="text-lg font-bold text-white flex items-center gap-1.5">
-                  <span>Pro Creator</span>
-                  <Flame className="w-4 h-4 text-amber-400" />
-                </h4>
+                <h4 className="text-sm font-semibold text-white">Pro Creator</h4>
                 {user?.plan === 'pro' && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/40">
-                    Active Plan
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white text-black font-medium">
+                    Active
                   </span>
                 )}
               </div>
-              <p className="text-xs text-violet-300/80 mt-1">For serious tech writers, founders & advocates</p>
+              <p className="text-xs text-zinc-400 mt-1">For writers & advocates</p>
 
-              <div className="my-4">
-                <span className="text-3xl font-extrabold text-white font-[family-name:var(--font-outfit)]">
+              <div className="my-3">
+                <span className="text-2xl font-bold text-white font-mono">
                   ${billingCycle === 'yearly' ? '12' : '19'}
                 </span>
-                <span className="text-xs text-slate-400">
-                  {' '}
-                  / month {billingCycle === 'yearly' && '(billed $149/yr)'}
-                </span>
+                <span className="text-xs text-zinc-400"> / mo</span>
               </div>
 
-              <ul className="space-y-2.5 text-xs text-slate-200 pt-2 border-t border-violet-900/40">
+              <ul className="space-y-2 text-xs text-zinc-300 pt-3 border-t border-zinc-800">
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span className="font-semibold text-white">Unlimited Article Repurposing</span>
+                  <Check className="w-3.5 h-3.5 text-white shrink-0" />
+                  <span className="font-medium text-white">Unlimited Repurposing</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span>All 6 Viral Platforms</span>
+                  <Check className="w-3.5 h-3.5 text-white shrink-0" />
+                  <span>All 6 Distribution Formats</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span>1080px LinkedIn PDF Slides Export</span>
+                  <Check className="w-3.5 h-3.5 text-white shrink-0" />
+                  <span>PDF Carousel Export</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span>60s YouTube Short & Reel Scripts</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span>WordPress Blog RSS Auto-Sync</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span>DeepSeek V3 & GPT-4o Engine</span>
+                  <Check className="w-3.5 h-3.5 text-white shrink-0" />
+                  <span>RSS Auto-Sync</span>
                 </li>
               </ul>
             </div>
 
-            <div className="pt-6">
+            <div className="pt-5">
               <button
                 onClick={() => handleUpgrade('pro')}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white font-bold text-xs shadow-lg shadow-violet-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-2 rounded-md bg-white hover:bg-zinc-200 text-black font-semibold text-xs transition-colors cursor-pointer"
               >
                 {upgradedPlan === 'pro' ? (
-                  <>
-                    <Check className="w-4 h-4 text-white" />
-                    <span>Upgraded to Pro! 🎉</span>
-                  </>
+                  <span>Upgraded</span>
                 ) : user?.plan === 'pro' ? (
-                  <span>Current Plan (Active)</span>
+                  <span>Current Plan</span>
                 ) : (
-                  <>
-                    <Sparkles className="w-4 h-4 text-amber-300" />
-                    <span>Upgrade to Pro Now</span>
-                  </>
+                  <span>Upgrade to Pro</span>
                 )}
               </button>
             </div>
           </div>
 
-          {/* 3. Agency / Team */}
-          <div className="rounded-2xl p-5 border border-slate-800 bg-slate-950/40 flex flex-col justify-between">
+          {/* 3. Agency */}
+          <div className="rounded-lg p-5 border border-zinc-850 bg-black flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between">
-                <h4 className="text-base font-bold text-white">Agency / Team</h4>
+                <h4 className="text-sm font-semibold text-white">Team</h4>
                 {user?.plan === 'agency' && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                    Active Plan
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800">
+                    Active
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-400 mt-1">For content agencies & dev marketing teams</p>
+              <p className="text-xs text-zinc-500 mt-1">For teams & agencies</p>
 
-              <div className="my-4">
-                <span className="text-3xl font-extrabold text-white font-[family-name:var(--font-outfit)]">
-                  ${billingCycle === 'yearly' ? '33' : '49'}
+              <div className="my-3">
+                <span className="text-2xl font-bold text-white font-mono">
+                  ${billingCycle === 'yearly' ? '39' : '49'}
                 </span>
-                <span className="text-xs text-slate-400">
-                  {' '}
-                  / month {billingCycle === 'yearly' && '(billed $399/yr)'}
-                </span>
+                <span className="text-xs text-zinc-500"> / mo</span>
               </div>
 
-              <ul className="space-y-2.5 text-xs text-slate-300 pt-2 border-t border-slate-800/80">
+              <ul className="space-y-2 text-xs text-zinc-400 pt-3 border-t border-zinc-900">
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                  <span className="font-semibold text-white">Everything in Pro</span>
+                  <Check className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                  <span>Everything in Pro</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                  <span>5 Team Member Accounts</span>
+                  <Check className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                  <span>Team Workspaces</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                  <span>Custom Watermarks & Branding</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                  <span>Direct Webhook & Buffer Sync</span>
+                  <Check className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                  <span>Custom Watermarks</span>
                 </li>
               </ul>
             </div>
 
-            <div className="pt-6">
+            <div className="pt-5">
               <button
                 onClick={() => handleUpgrade('agency')}
-                className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs transition-all cursor-pointer"
+                className="w-full py-2 rounded-md bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-xs border border-zinc-800 transition-colors cursor-pointer"
               >
-                {upgradedPlan === 'agency' ? 'Upgraded! 🎉' : 'Select Agency Plan'}
+                {upgradedPlan === 'agency' ? 'Upgraded' : 'Select Team'}
               </button>
             </div>
           </div>
 
-        </div>
-
-        {/* Guarantee Banner */}
-        <div className="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-center gap-2 text-xs text-slate-400">
-          <ShieldCheck className="w-4 h-4 text-emerald-400" />
-          <span>Supports Global Cards (Stripe / LemonSqueezy) • Cancel anytime with 1-click.</span>
         </div>
 
       </div>

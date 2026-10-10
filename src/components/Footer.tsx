@@ -1,40 +1,36 @@
 'use client';
 
 import React from 'react';
-import { Activity, ExternalLink } from 'lucide-react';
+import { Logo } from '@/components/Logo';
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-slate-800/80 bg-[#05070B] mt-auto py-8 text-xs text-slate-500">
-      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-3 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <footer className="w-full border-t border-zinc-900 bg-black py-10 text-xs text-zinc-500">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
         
         {/* Brand */}
-        <div className="flex items-center gap-2">
-          <Activity className="w-4 h-4 text-cyan-400" />
-          <span className="font-semibold text-slate-300 font-[family-name:var(--font-outfit)]">
-            ContentPulse AI
+        <div className="flex items-center gap-3">
+          <Logo size="sm" showTagline={false} />
+          <span className="text-zinc-600 hidden sm:inline">|</span>
+          <span className="text-zinc-500">
+            Publishing & Distribution Platform
           </span>
-          <span>— Multi-Platform Technical Content Repurposing Micro-SaaS</span>
         </div>
 
-        {/* Founder Credit */}
-        <div className="flex items-center gap-2">
-          <span>Architected by</span>
+        {/* Creator */}
+        <div className="flex items-center gap-3 text-zinc-500">
+          <span>By Malik Hammad</span>
+          <span>•</span>
           <a
             href="https://blog.malikhammaddigital.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-violet-400 font-semibold hover:text-violet-300 transition-colors inline-flex items-center gap-1"
+            className="text-zinc-400 hover:text-white transition-colors"
           >
-            <span>Malik Hammad</span>
-            <span className="text-slate-500 font-normal">(NEXUS PULSE)</span>
-            <ExternalLink className="w-3 h-3 ml-0.5" />
+            Blog
           </a>
-        </div>
-
-        {/* Copyright */}
-        <div className="text-[11px] text-slate-600">
-          &copy; {new Date().getFullYear()} ContentPulse AI. All rights reserved.
+          <span>•</span>
+          <span>&copy; {new Date().getFullYear()}</span>
         </div>
 
       </div>
